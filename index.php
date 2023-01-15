@@ -20,10 +20,12 @@ $departmentId = $_POST['departmentId'] ?? '';
 include 'view/head.php';
 
 
-if ($action === 'showReadEmployee') {
-    $view = 'showReadEmployee';
-} elseif ($action === 'showReadDepartment') {
-    $view = 'showReadDepartment';
+if ($action === 'showRead') {
+    if ($area === 'employee') {
+        $view = 'showReadEmployee';
+    } elseif ($area === 'department') {
+        $view = 'showReadDepartment';
+    }
 }
 
 if ($action === 'showCreate') {
