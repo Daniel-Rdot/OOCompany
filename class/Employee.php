@@ -22,7 +22,7 @@ class Employee // implements TableEditable
     public function __construct(string $firstName, string $lastName, string $sex, float $salary, int $departmentId, int $id = null)
     {
         $mysqli = Db::connect();
-        $sql = "INSERT INTO employees(id, firstname, lastname, sex, salary, department_id) VALUES (NULL, '$$firstName', '$lastName', '$sex', $salary, $departmentId)";
+        $sql = "INSERT INTO employees(id, firstname, lastname, sex, salary, department_id) VALUES (NULL, '$firstName', '$lastName', '$sex', $salary, $departmentId)";
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->sex = $sex;
@@ -121,7 +121,7 @@ class Employee // implements TableEditable
      * @param int $id
      * @return void
      */
-    function deleteFromTable(int $id): void
+    public static function deleteFromTable(int $id): void
     {
         $sql = "DELETE FROM employees WHERE id = $id";
         $mysqli = Db::connect();
@@ -137,8 +137,13 @@ class Employee // implements TableEditable
      * @param int $id
      * @return void
      */
-    public function updateTableEntry(string $firstName, string $lastName, string $sex, float $salary, int $departmentId, int $id): void
+    public function updateTableEntry(string $firstName, string $lastName, string $sex, float $salary, int $departmentId): void
     {
+        $this->setFirstName($firstName);
+        $this->setLastName($lastName);
+        $this->setSalary($salary);
+        $this->setDepartmentId($departmentId);
+        $id = $this->getId();
         $mysqli = Db::connect();
         $mysqli->query("UPDATE employees SET firstname = '$firstName', lastname = '$lastName', sex = '$sex', salary = $salary, department_id = $departmentId WHERE id = $id");
     }
@@ -208,7 +213,7 @@ class Employee // implements TableEditable
             $html .= '<input type="hidden" name="area" value="employee">';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
                 $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
-            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="deleteEmployee' .
+            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="delete' .
                 $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td>';
             $html .= '</form>';
         }
@@ -221,7 +226,6 @@ class Employee // implements TableEditable
 
     public static function getForm(Employee $employee = null): string
     {
-
         $html = '<form class="col s12" action="index.php" method="post">';
         $html .= '<input type="hidden" name="area" value="employee">';
         $html .= '<div class="row">';
@@ -279,17 +283,23 @@ class Employee // implements TableEditable
         } else {
             $html .= Department::getSelect($employee);
         }
-
-//        $html .= Department::getSelect();
         $html .= '</select>';
         $html .= '<label for="dptDropdown">Abteilung</label>';
         $html .= '</div>';
         $html .= '</div>';
         $html .= '<div class="row">';
-        $html .= '<button class="btn waves-effect waves-light" name="action" value="create" type="submit">
+        if (!isset($employee)) {
+            $html .= '<button class="btn waves-effect waves-light" name="action" value="create" type="submit">
                 Hinzufügen';
-        $html .= '<i class="material-icons right">+</i>';
-        $html .= '</button>';
+            $html .= '<i class="material-icons right">+</i>';
+            $html .= '</button>';
+        } else {
+            $html .= '<button class="btn waves-effect waves-light" name="action" value="update' . $employee->getId() . '" type="submit">
+                Ändern';
+            $html .= '<i class="material-icons right">+</i>';
+
+            $html .= '</button>';
+        }
         $html .= '</div>';
         $html .= '</form>';
         $html .= '</div>';

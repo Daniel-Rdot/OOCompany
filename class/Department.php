@@ -61,7 +61,7 @@ class Department // implements TableEditable
      * @param int $id
      * @return void
      */
-    function deleteFromTable(int $id): void
+    public static function deleteFromTable(int $id): void
     {
         $sql = "DELETE FROM departments WHERE id = $id";
         $mysqli = Db::connect();
@@ -73,8 +73,10 @@ class Department // implements TableEditable
      * @param $id
      * @return void
      */
-    public function updateTableEntry(string $dptName, $id): void
+    public function updateTableEntry(string $dptName): void
     {
+        $this->setDptName($dptName);
+        $id = $this->getId();
         $mysqli = Db::connect();
         $sql = "UPDATE departments SET dptname = '$dptName' WHERE id = $id";
         $mysqli->query($sql);
@@ -148,7 +150,7 @@ class Department // implements TableEditable
             $html .= '<input type="hidden" name="area" value="department">';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
                 $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
-            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="deleteDepartment' .
+            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="delete' .
                 $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td>';
             $html .= '</form>';
         }
@@ -156,6 +158,38 @@ class Department // implements TableEditable
         $html .= '</table>';
 
         return $html;
+    }
 
+    public static function getForm(Department $department = null): string
+    {
+        $html = '<form class="col s12" action="index.php" method="post">';
+        $html .= '<input type="hidden" name="area" value="department">';
+        $html .= '<div class="row">';
+        $html .= '<div class="input-field col s6">';
+        $html .= '<input id="dptname" type="text" class="validate" name="departmentName"';
+        if (isset($department)) {
+            $html .= 'value="' . $department->getDptName() . '"';
+        }
+        $html .= '">';
+        $html .= '<label for="dptname">Bezeichnung</label>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '<div class="row">';
+        if (!isset($department)) {
+            $html .= '<button class="btn waves-effect waves-light" name="action" value="create" type="submit">
+                Hinzufügen';
+            $html .= '<i class="material-icons right">+</i>';
+            $html .= '</button>';
+        } else {
+            $html .= '<button class="btn waves-effect waves-light" name="action" value="update' . $department->getId() . '" type="submit">
+                Ändern';
+            $html .= '<i class="material-icons right">+</i>';
+            $html .= '</button>';
+        }
+        $html .= '</div>';
+        $html .= '</form>';
+        $html .= '</div>';
+
+        return $html;
     }
 }

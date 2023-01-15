@@ -26,9 +26,7 @@ if ($action === 'showRead') {
     } elseif ($area === 'department') {
         $view = 'showReadDepartment';
     }
-}
-
-if ($action === 'showCreate') {
+} elseif ($action === 'showCreate') {
     if ($area === 'employee') {
         $view = 'showCreateEmployee';
     } elseif ($area === 'department') {
@@ -40,14 +38,30 @@ if ($action === 'showCreate') {
     } elseif ($area === 'department') {
         $view = 'showUpdateDepartment';
     }
-}
-
-if ($action === 'create') {
+} elseif ($action === 'create') {
     if ($area === 'employee') {
         new Employee($firstName, $lastName, $sex, $salary, $departmentId);
         $view = 'showReadEmployee';
     } elseif ($area === 'department') {
         new Department(($departmentName));
+        $view = 'showReadDepartment';
+    }
+} elseif (str_starts_with($action, 'delete')) {
+    if ($area === 'employee') {
+        Employee::deleteFromTable(substr($action, 6));
+        $view = 'showReadEmployee';
+    } elseif ($area === 'department') {
+        Department::deleteFromTable(substr($action, 6));
+        $view = 'showReadDepartment';
+    }
+} elseif (str_starts_with($action, 'update')) {
+    if ($area === 'employee') {
+        $e = Employee::getById(substr($action, 6));
+        $e->updateTableEntry($firstName, $lastName, $sex, $salary, $departmentId);
+        $view = 'showReadEmployee';
+    } elseif ($area === 'department') {
+        $d = Department::getById(substr($action, 6));
+        $d->updateTableEntry($departmentName);
         $view = 'showReadDepartment';
     }
 }
