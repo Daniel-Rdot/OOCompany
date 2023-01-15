@@ -117,4 +117,33 @@ class Department // implements TableEditable
         }
         return $select;
     }
+
+    public static function getTable(): string
+    {
+        $employees = Department::getAll();
+        $html = '<h2>Abteilungen</h2>';
+        $html .= '<table class="highlight striped">';
+        $html .= '<thead>';
+        $html .= '<tr>';
+        $html .= '<th>ID</th>';
+        $html .= '<th>Name</th>';
+        $html .= '</thead>';
+        $html .= '<tbody>';
+        foreach ($employees as $employee) {
+            $currentId = $employee->getId();
+            $html .= '<tr>';
+            $html .= '<td>' . $employee->getId() . '</td>';
+            $html .= '<td>' . $employee->getDptName() . '</td>';
+            $html .= '<form action="index.php" method="post">';
+            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
+                $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
+            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="deleteEmployee' .
+                $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td></form>';
+        }
+        $html .= '</tbody>';
+        $html .= '</table>';
+
+        return $html;
+
+    }
 }
