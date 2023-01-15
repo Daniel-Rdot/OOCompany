@@ -34,7 +34,7 @@ if ($action === 'showCreate') {
     } elseif ($area === 'department') {
         $view = 'showCreateDepartment';
     }
-} elseif ($action === 'showUpdate') {
+} elseif (str_starts_with($action, 'showUpdate')) {
     if ($area === 'employee') {
         $view = 'showUpdateEmployee';
     } elseif ($area === 'department') {
@@ -42,15 +42,16 @@ if ($action === 'showCreate') {
     }
 }
 
+if ($action === 'create') {
+    if ($area === 'employee') {
+        new Employee($firstName, $lastName, $sex, $salary, $departmentId);
+        $view = 'showReadEmployee';
+    } elseif ($area === 'department') {
+        new Department(($departmentName));
+        $view = 'showReadDepartment';
+    }
+}
 
-if ($action === 'createEmployee') {
-    new Employee($firstName, $lastName, $sex, $salary, $departmentId);
-    $view = 'showReadEmployee';
-}
-if ($action === 'createDepartment') {
-    new Department(($departmentName));
-    $view = 'showReadDepartment';
-}
 
 include 'view/' . $view . '.php';
 include 'view/foot.php';

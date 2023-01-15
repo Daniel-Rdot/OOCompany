@@ -205,16 +205,96 @@ class Employee // implements TableEditable
             $html .= '<td>' . $employee->getSalary() . '</td>';
             $html .= '<td>' . Department::getById($employee->getDepartmentId())->getDptName() . '</td>';
             $html .= '<form action="index.php" method="post">';
+            $html .= '<input type="hidden" name="area" value="employee">';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
                 $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="deleteEmployee' .
-                $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td></form>';
+                $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td>';
+            $html .= '</form>';
         }
         $html .= '</tbody>';
         $html .= '</table>';
 
         return $html;
 
+    }
+
+    public static function getForm(Employee $employee = null): string
+    {
+
+        $html = '<form class="col s12" action="index.php" method="post">';
+        $html .= '<input type="hidden" name="area" value="employee">';
+        $html .= '<div class="row">';
+        $html .= '<div class="input-field col s6">';
+        $html .= '<input id="first_name" type="text" class="validate" name="firstName"';
+        if (isset($employee)) {
+            $html .= 'value="' . $employee->getFirstName() . '"';
+        }
+        $html .= '">';
+        $html .= '<label for="first_name">Vorname</label>';
+        $html .= '</div>';
+        $html .= '<div class="input-field col s6">';
+        $html .= '<input id="last_name" type="text" class="validate" name="lastName"';
+        if (isset($employee)) {
+            $html .= 'value="' . $employee->getLastName() . '"';
+        }
+        $html .= '>';
+        $html .= '<label for="last_name">Nachname</label>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '<div class="row">';
+        $html .= '<div class="input-field col s6">';
+        $html .= '<select id="sexDropdown" class="materialSelect" name="sex">';
+        if (!isset($employee)) {
+            $html .= '<option value="" disabled selected>Geschlecht auswählen</option>';
+            $html .= '<option value="m">Männlich</option>';
+            $html .= '<option value="w">Weiblich</option>';
+        } else {
+            if ($employee->getSex() === 'm') {
+                $html .= '<option value="m" selected>Männlich</option>';
+                $html .= '<option value="w">Weiblich</option>';
+            } else {
+                $html .= '<option value="w" selected>Weiblich</option>';
+                $html .= '<option value="m">Männlich</option>';
+            }
+        }
+        $html .= '</select>';
+        $html .= '<label for="sexDropdown">Geschlecht</label>';
+        $html .= '</div>';
+        $html .= '<div class="input-field col s6">';
+        $html .= '<input id="salary" type="text" class="validate" name="salary"';
+        if (isset($employee)) {
+            $html .= 'value="' . $employee->getSalary() . '"';
+        }
+        $html .= '>';
+        $html .= '<label for="salary">Monatslohn</label>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '<div class="row">';
+        $html .= '<div class="input-field col s6">';
+        $html .= '<select id="dptDropdown" class="materialSelect" name="departmentId">';
+        if (!isset($employee)) {
+            $html .= '<option value="" disabled selected>Abteilung auswählen</option>';
+            $html .= Department::getSelect();
+        } else {
+            $html .= Department::getSelect($employee);
+        }
+
+//        $html .= Department::getSelect();
+        $html .= '</select>';
+        $html .= '<label for="dptDropdown">Abteilung</label>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $html .= '<div class="row">';
+        $html .= '<button class="btn waves-effect waves-light" name="action" value="create" type="submit">
+                Hinzufügen';
+        $html .= '<i class="material-icons right">+</i>';
+        $html .= '</button>';
+        $html .= '</div>';
+        $html .= '</form>';
+        $html .= '</div>';
+
+        return $html;
     }
 
 }

@@ -108,12 +108,22 @@ class Department // implements TableEditable
     /**
      * @return string
      */
-    public static function getSelect(): string
+    public static function getSelect(Employee $employee = null): string
     {
         $select = '';
         $departments = self::getAll();
-        foreach ($departments as $department) {
-            $select .= '<option value="' . $department->getId() . '">' . $department->getDptName() . '</option>';
+        if (isset($employee)) {
+            foreach ($departments as $department) {
+                if ($employee->getDepartmentId() == $department->getId()) {
+                    $select .= '<option value="' . $department->getId() . '" selected>' . $department->getDptName() . '</option>';
+                } else {
+                    $select .= '<option value="' . $department->getId() . '">' . $department->getDptName() . '</option>';
+                }
+            }
+        } else {
+            foreach ($departments as $department) {
+                $select .= '<option value="' . $department->getId() . '">' . $department->getDptName() . '</option>';
+            }
         }
         return $select;
     }
@@ -135,10 +145,12 @@ class Department // implements TableEditable
             $html .= '<td>' . $employee->getId() . '</td>';
             $html .= '<td>' . $employee->getDptName() . '</td>';
             $html .= '<form action="index.php" method="post">';
+            $html .= '<input type="hidden" name="area" value="department">';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
                 $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
-            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="deleteEmployee' .
-                $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td></form>';
+            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="deleteDepartment' .
+                $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td>';
+            $html .= '</form>';
         }
         $html .= '</tbody>';
         $html .= '</table>';
