@@ -21,6 +21,7 @@ class Employee // implements TableEditable
      */
     public function __construct(string $firstName, string $lastName, string $sex, float $salary, int $departmentId, int $id = null)
     {
+
         $mysqli = Db::connect();
         $sql = "INSERT INTO employees(id, firstname, lastname, sex, salary, department_id) VALUES (NULL, '$firstName', '$lastName', '$sex', $salary, $departmentId)";
         $this->firstName = $firstName;
@@ -35,6 +36,7 @@ class Employee // implements TableEditable
         } else {
             $this->id = $id;
         }
+
     }
 
     /**
@@ -163,13 +165,18 @@ class Employee // implements TableEditable
      */
     public static function getAll(): array
     {
+        $readArr = [];
+//        try {
         $sql = "SELECT id, firstname, lastname, sex, salary, department_id FROM employees ORDER BY id ASC";
         $mysqli = Db::connect();
         $result = $mysqli->query($sql);
-        $readArr = [];
+
         while ($row = $result->fetch_assoc()) {
             $readArr[] = new Employee($row['firstname'], $row['lastname'], $row['sex'], $row['salary'], $row['department_id'], $row['id']);
         }
+//        } catch (Error $e) {
+//            echo $e->getMessage();
+//        }
         return $readArr;
     }
 
