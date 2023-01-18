@@ -21,7 +21,6 @@ class Employee // implements TableEditable
      */
     public function __construct(string $firstName, string $lastName, string $sex, float $salary, int $departmentId, int $id = null)
     {
-
         $mysqli = Db::connect();
         $sql = "INSERT INTO employees(id, firstname, lastname, sex, salary, department_id) VALUES (NULL, '$firstName', '$lastName', '$sex', $salary, $departmentId)";
         $this->firstName = $firstName;
@@ -30,9 +29,17 @@ class Employee // implements TableEditable
         $this->salary = $salary;
         $this->departmentId = $departmentId;
         if (!isset($id)) {
-            $this->id = self::$nextId;
-            Employee::$nextId++;
-            $mysqli->query($sql);
+            $checkForDuplicates = "SELECT EXISTS(SELECT firstname, lastname FROM employees WHERE firstname = '$firstName' AND lastname = '$lastName')";
+            if (!$mysqli->query($checkForDuplicates)) {
+                echo 'asdf';
+                $this->id = self::$nextId;
+                Employee::$nextId++;
+                $mysqli->query($sql);
+            } else {
+                include 'view/duplicate.php';
+                $view = 'showCreate';
+                $area = 'employee';
+            }
         } else {
             $this->id = $id;
         }
