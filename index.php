@@ -40,8 +40,13 @@ try {
         }
     } elseif ($action === 'create') {
         if ($area === 'employee') {
-            new Employee($firstName, $lastName, $sex, $salary, $departmentId);
-            $view = 'showReadEmployee';
+            if (!Employee::exists($firstName, $lastName)) {
+                new Employee($firstName, $lastName, $sex, $salary, $departmentId);
+                $view = 'showRead' . ucfirst($area);
+            } else {
+                include 'view/duplicate.php';
+                $view = 'showCreate' . ucfirst($area);
+            }
         } elseif ($area === 'department') {
             new Department(($departmentName));
             $view = 'showReadDepartment';

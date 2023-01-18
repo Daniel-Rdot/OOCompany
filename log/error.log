@@ -1,3 +1,28 @@
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECTEXISTS(SELECT firstname, lastname FROM employees WHERE firstname = 'You...' at line 1 46
+C:\xampp\htdocs\OOCompany\index.php 1064 #0 C:\xampp\htdocs\OOCompany\index.php(46): mysqli->query('SELECTEXISTS(SE...')
+#1 {main} 2023-01-18 12:09:45
+Cannot use object of type mysqli_result as array 45
+C:\xampp\htdocs\OOCompany\index.php 0 #0 {main} 2023-01-18 12:03:50
+Object of class mysqli_result could not be converted to string 45
+C:\xampp\htdocs\OOCompany\index.php 0 #0 {main} 2023-01-18 11:51:20
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Ho AND lastname = Lee)' at line 1 45
+C:\xampp\htdocs\OOCompany\index.php 1064 #0 C:\xampp\htdocs\OOCompany\index.php(45): mysqli->query('SELECT EXISTS(S...')
+#1 {main} 2023-01-18 11:48:44
+Typed property Employee::$id must not be accessed before initialization 52
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(216): Employee->getId()
+#1 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#2 C:\xampp\htdocs\OOCompany\index.php(68): include('C:\\xampp\\htdocs...')
+#3 {main} 2023-01-18 11:39:10
+Typed property Employee::$id must not be accessed before initialization 52
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(216): Employee->getId()
+#1 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#2 C:\xampp\htdocs\OOCompany\index.php(68): include('C:\\xampp\\htdocs...')
+#3 {main} 2023-01-18 11:39:06
+Typed property Employee::$id must not be accessed before initialization 52
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(216): Employee->getId()
+#1 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#2 C:\xampp\htdocs\OOCompany\index.php(68): include('C:\\xampp\\htdocs...')
+#3 {main} 2023-01-18 11:38:59
 Employee::__construct(): Argument #4 ($salary) must be of type float, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 43 22
 C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(43): Employee->__construct('You', '', '', '', '')
 #1 {main} 2023-01-18 10:42:30

@@ -29,21 +29,12 @@ class Employee // implements TableEditable
         $this->salary = $salary;
         $this->departmentId = $departmentId;
         if (!isset($id)) {
-            $checkForDuplicates = "SELECT EXISTS(SELECT firstname, lastname FROM employees WHERE firstname = '$firstName' AND lastname = '$lastName')";
-            if (!$mysqli->query($checkForDuplicates)) {
-                echo 'asdf';
-                $this->id = self::$nextId;
-                Employee::$nextId++;
-                $mysqli->query($sql);
-            } else {
-                include 'view/duplicate.php';
-                $view = 'showCreate';
-                $area = 'employee';
-            }
+            $this->id = self::$nextId;
+            Employee::$nextId++;
+            $mysqli->query($sql);
         } else {
             $this->id = $id;
         }
-
     }
 
     /**
@@ -185,6 +176,37 @@ class Employee // implements TableEditable
 //            echo $e->getMessage();
 //        }
         return $readArr;
+    }
+
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @return bool
+     * @throws Exception
+     */
+    public static function exists(string $firstName, string $lastName): bool
+    {
+        $mysqli = Db::connect();
+        $checkForDuplicates = "SELECT EXISTS(SELECT firstname, lastname FROM employees WHERE firstname = '$firstName' AND lastname = '$lastName')";
+        $result = $mysqli->query($checkForDuplicates);
+        $row = $result->fetch_assoc();
+        $dupe = false;
+        foreach ($row as $x => $x_value) {
+            $dupe = $x_value;
+        }
+        return $dupe;
+    }
+
+
+    public static function inputNotEmpty(string $firstName, string $lastName, float $salary): bool
+    {
+        $arguments = func_get_args();
+        foreach ($arguments as $argument) {
+            if (empty($argument)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
