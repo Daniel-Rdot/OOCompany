@@ -13,16 +13,23 @@ class Department // implements TableEditable
      */
     public function __construct(string $dptName, int $id = null)
     {
-        $mysqli = Db::connect();
-        $sql = "INSERT INTO departments(id, dptname) VALUES (NULL, '$dptName')";
-        $this->dptName = $dptName;
-        if (!isset($id)) {
-            $this->id = self::$nextId;
-            Department::$nextId++;
-            $mysqli->query($sql);
-        } else {
-            $this->id = $id;
+        try {
+            $mysqli = Db::connect();
+            $sql = "INSERT INTO departments(id, dptname) VALUES (NULL, '$dptName')";
+            $this->dptName = $dptName;
+            if (!isset($id)) {
+                $this->id = self::$nextId;
+                Department::$nextId++;
+                $mysqli->query($sql);
+            } else {
+                $this->id = $id;
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage() . ' ' . $e->getLine() . "\n" . $e->getFile() .
+                ' ' . $e->getCode() . ' ' . $e->getTraceAsString() . ' ' . Date('Y-m-d H:i:s') . "\n" .
+                file_get_contents('log/error.log'));
         }
+
     }
 
     /**
