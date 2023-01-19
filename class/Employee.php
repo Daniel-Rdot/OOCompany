@@ -181,6 +181,27 @@ class Employee // implements TableEditable
     /**
      * @param string $firstName
      * @param string $lastName
+     * @param $salary
+     * @return bool
+     */
+    public static function checkInput(string $firstName, string $lastName, string $salary): array
+    {
+        $inputCheck = [];
+        if (Employee::exists($firstName, $lastName)) {
+            $inputCheck[] = 'duplicate';
+        }
+//        if (!Employee::inputNotEmpty($firstName, $lastName, $salary)) {
+//            $inputCheck[] = 'empty';
+//        }
+        if (!is_numeric($salary)) {
+            $inputCheck[] = 'salaryNotFloat';
+        }
+        return $inputCheck;
+    }
+
+    /**
+     * @param string $firstName
+     * @param string $lastName
      * @return bool
      * @throws Exception
      */
@@ -197,8 +218,13 @@ class Employee // implements TableEditable
         return $dupe;
     }
 
-
-    public static function inputNotEmpty(string $firstName, string $lastName, float $salary): bool
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @param float $salary
+     * @return bool
+     */
+    public static function inputNotEmpty(string $firstName, string $lastName, string $salary): bool
     {
         $arguments = func_get_args();
         foreach ($arguments as $argument) {
@@ -270,6 +296,7 @@ class Employee // implements TableEditable
         if (isset($employee)) {
             $html .= 'value="' . $employee->getFirstName() . '"';
         }
+//        $html .= '" required>';
         $html .= '">';
         $html .= '<label for="first_name">Vorname</label>';
         $html .= '</div>';
@@ -278,13 +305,14 @@ class Employee // implements TableEditable
         if (isset($employee)) {
             $html .= 'value="' . $employee->getLastName() . '"';
         }
-        $html .= '>';
+//        $html .= '" required>';
+        $html .= '">';
         $html .= '<label for="last_name">Nachname</label>';
         $html .= '</div>';
         $html .= '</div>';
         $html .= '<div class="row">';
         $html .= '<div class="input-field col s6">';
-        $html .= '<select id="sexDropdown" class="materialSelect" name="sex">';
+        $html .= '<select id="sexDropdown" class="materialSelect" name="sex" required>';
         if (!isset($employee)) {
             $html .= '<option value="" disabled selected>Geschlecht auswählen</option>';
             $html .= '<option value="m">Männlich</option>';
@@ -306,13 +334,14 @@ class Employee // implements TableEditable
         if (isset($employee)) {
             $html .= 'value="' . $employee->getSalary() . '"';
         }
-        $html .= '>';
+//        $html .= '" required>';
+        $html .= '">';
         $html .= '<label for="salary">Monatslohn</label>';
         $html .= '</div>';
         $html .= '</div>';
         $html .= '<div class="row">';
         $html .= '<div class="input-field col s6">';
-        $html .= '<select id="dptDropdown" class="materialSelect" name="departmentId">';
+        $html .= '<select id="dptDropdown" class="materialSelect" name="departmentId" required>';
         if (!isset($employee)) {
             $html .= '<option value="" disabled selected>Abteilung auswählen</option>';
             $html .= Department::getSelect();

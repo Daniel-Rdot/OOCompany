@@ -15,6 +15,7 @@ $lastName = $_POST['lastName'] ?? '';
 $sex = $_POST['sex'] ?? '';
 $salary = $_POST['salary'] ?? '';
 $departmentId = $_POST['departmentId'] ?? '';
+$inputWarning = '';
 
 
 include 'view/head.php';
@@ -40,13 +41,21 @@ try {
         }
     } elseif ($action === 'create') {
         if ($area === 'employee') {
-            if (!Employee::exists($firstName, $lastName)) {
-                new Employee($firstName, $lastName, $sex, $salary, $departmentId);
-                $view = 'showRead' . ucfirst($area);
+            if (Employee::inputNotEmpty($firstName, $lastName, $salary)) {
+                if (!Employee::exists($firstName, $lastName)) {
+                    new Employee($firstName, $lastName, $sex, $salary, $departmentId);
+                    $view = 'showRead' . ucfirst($area);
+                } else {
+                    $inputWarning = 'duplicate';
+                    include 'view/inputWarnings.php';
+                    $view = 'showCreate' . ucfirst($area);
+                }
             } else {
-                include 'view/duplicate.php';
+                $inputWarning = 'empty';
+                include 'view/inputWarnings.php';
                 $view = 'showCreate' . ucfirst($area);
             }
+
         } elseif ($area === 'department') {
             new Department(($departmentName));
             $view = 'showReadDepartment';

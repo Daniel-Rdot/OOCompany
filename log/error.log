@@ -1,3 +1,42 @@
+Department::__construct(): Argument #1 ($dptName) must be of type string, null given, called in C:\xampp\htdocs\OOCompany\class\Department.php on line 102 14
+C:\xampp\htdocs\OOCompany\class\Department.php 0 #0 C:\xampp\htdocs\OOCompany\class\Department.php(102): Department->__construct(NULL, NULL)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(273): Department::getById(6000)
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(82): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-19 08:54:39
+Department::__construct(): Argument #1 ($dptName) must be of type string, null given, called in C:\xampp\htdocs\OOCompany\class\Department.php on line 102 14
+C:\xampp\htdocs\OOCompany\class\Department.php 0 #0 C:\xampp\htdocs\OOCompany\class\Department.php(102): Department->__construct(NULL, NULL)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(273): Department::getById(6000)
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(82): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-19 08:52:12
+Department::__construct(): Argument #1 ($dptName) must be of type string, null given, called in C:\xampp\htdocs\OOCompany\class\Department.php on line 102 14
+C:\xampp\htdocs\OOCompany\class\Department.php 0 #0 C:\xampp\htdocs\OOCompany\class\Department.php(102): Department->__construct(NULL, NULL)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(273): Department::getById(6000)
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(82): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-19 08:50:57
+Department::__construct(): Argument #1 ($dptName) must be of type string, null given, called in C:\xampp\htdocs\OOCompany\class\Department.php on line 102 14
+C:\xampp\htdocs\OOCompany\class\Department.php 0 #0 C:\xampp\htdocs\OOCompany\class\Department.php(102): Department->__construct(NULL, NULL)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(273): Department::getById(6000)
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(82): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-19 08:48:58
+Employee::inputNotEmpty(): Argument #3 ($salary) must be of type float, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 44 227
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(44): Employee::inputNotEmpty('4', '4', '')
+#1 {main} 2023-01-19 08:47:13
+Employee::inputNotEmpty(): Argument #3 ($salary) must be of type float, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 44 227
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(44): Employee::inputNotEmpty('4', '4', '')
+#1 {main} 2023-01-19 08:47:00
+Employee::inputNotEmpty(): Argument #3 ($salary) must be of type float, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 44 227
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(44): Employee::inputNotEmpty('', 'f', 'r')
+#1 {main} 2023-01-19 08:44:36
+Employee::inputNotEmpty(): Argument #5 ($departmentId) must be of type int, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 44 201
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(44): Employee::inputNotEmpty('tz', 'ttz', '', 5.0, '')
+#1 {main} 2023-01-18 13:29:50
+Employee::__construct(): Argument #5 ($departmentId) must be of type int, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 46 22
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(46): Employee->__construct('test', 'asdf', '', 7.0, '')
+#1 {main} 2023-01-18 13:24:51
 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECTEXISTS(SELECT firstname, lastname FROM employees WHERE firstname = 'You...' at line 1 46
 C:\xampp\htdocs\OOCompany\index.php 1064 #0 C:\xampp\htdocs\OOCompany\index.php(46): mysqli->query('SELECTEXISTS(SE...')
 #1 {main} 2023-01-18 12:09:45
