@@ -18,6 +18,7 @@ class Employee // implements TableEditable
      * @param float $salary
      * @param int $departmentId
      * @param int|null $id
+     * @throws Exception
      */
     public function __construct(string $firstName, string $lastName, string $sex, float $salary, int $departmentId, int $id = null)
     {
@@ -29,9 +30,10 @@ class Employee // implements TableEditable
         $this->salary = $salary;
         $this->departmentId = $departmentId;
         if (!isset($id)) {
-            $this->id = self::$nextId;
-            Employee::$nextId++;
-            $mysqli->query($sql);
+            $stmt = $mysqli->prepare("INSERT INTO employees(id, firstname, lastname, sex, salary, department_id) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("isssdi", $id, $firstName, $lastName, $sex, $salary, $departmentId);
+            $stmt->execute();
+            $this->id = $mysqli->insert_id;
         } else {
             $this->id = $id;
         }
@@ -118,26 +120,25 @@ class Employee // implements TableEditable
     }
 
     /**
-     * @param int $id
-     * @return void
+     * turn void
      */
     public static function deleteFromTable(int $id): void
     {
-        $sql = "DELETE FROM employees WHERE id = $id";
         $mysqli = Db::connect();
-        $mysqli->query($sql);
+        $stmt = $mysqli->prepare("DELETE FROM employees WHERE id = (?)");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
     }
 
     /**
      * @param string $firstName
      * @param string $lastName
-     * @param string $sex
      * @param float $salary
      * @param int $departmentId
-     * @param int $id
      * @return void
+     * @throws Exception
      */
-    public function updateTableEntry(string $firstName, string $lastName, string $sex, float $salary, int $departmentId): void
+    public function updateTableEntry(string $firstName, string $lastName, float $salary, int $departmentId): void
     {
         $this->setFirstName($firstName);
         $this->setLastName($lastName);
@@ -145,10 +146,16 @@ class Employee // implements TableEditable
         $this->setDepartmentId($departmentId);
         $id = $this->getId();
         $mysqli = Db::connect();
-        $mysqli->query("UPDATE employees SET firstname = '$firstName', lastname = '$lastName', sex = '$sex', salary = $salary, department_id = $departmentId WHERE id = $id");
+        $stmt = $mysqli->prepare("UPDATE employees SET firstname = (?), lastname = (?), salary = (?), department_id = (?) WHERE id = (?)");
+        $stmt->bind_param("ssdii", $firstName, $lastName, $salary, $departmentId, $id);
+        $stmt->execute();
     }
 
-
+    /**
+     * @param int $id
+     * @return Employee
+     * @throws Exception
+     */
     public static function getById(int $id): Employee
     {
         $mysqli = Db::connect();
@@ -160,43 +167,18 @@ class Employee // implements TableEditable
 
     /**
      * @return array
+     * @throws Exception
      */
     public static function getAll(): array
     {
         $readArr = [];
-//        try {
         $sql = "SELECT id, firstname, lastname, sex, salary, department_id FROM employees ORDER BY id ASC";
         $mysqli = Db::connect();
         $result = $mysqli->query($sql);
-
         while ($row = $result->fetch_assoc()) {
             $readArr[] = new Employee($row['firstname'], $row['lastname'], $row['sex'], $row['salary'], $row['department_id'], $row['id']);
         }
-//        } catch (Error $e) {
-//            echo $e->getMessage();
-//        }
         return $readArr;
-    }
-
-    /**
-     * @param string $firstName
-     * @param string $lastName
-     * @param $salary
-     * @return bool
-     */
-    public static function checkInput(string $firstName, string $lastName, string $salary): array
-    {
-        $inputCheck = [];
-        if (Employee::exists($firstName, $lastName)) {
-            $inputCheck[] = 'duplicate';
-        }
-//        if (!Employee::inputNotEmpty($firstName, $lastName, $salary)) {
-//            $inputCheck[] = 'empty';
-//        }
-        if (!is_numeric($salary)) {
-            $inputCheck[] = 'salaryNotFloat';
-        }
-        return $inputCheck;
     }
 
     /**
@@ -219,16 +201,13 @@ class Employee // implements TableEditable
     }
 
     /**
-     * @param string $firstName
-     * @param string $lastName
-     * @param float $salary
+     * @param array $inputFields
      * @return bool
      */
-    public static function inputNotEmpty(string $firstName, string $lastName, string $salary): bool
+    public static function inputNotEmpty(array $inputFields): bool
     {
-        $arguments = func_get_args();
-        foreach ($arguments as $argument) {
-            if (empty($argument)) {
+        foreach ($inputFields as $field) {
+            if (!isset($field) or $field === '') {
                 return false;
             }
         }
@@ -236,16 +215,15 @@ class Employee // implements TableEditable
     }
 
     /**
-     * @return void
+     * @param $data
+     * @return string
      */
-
-    public function insertIntoTable(): void
+    function getSanitized($data): string
     {
-        $mysqli = Db::connect();
-        $sql = "INSERT INTO employees(id, firstname, lastname, sex, salary, department_id) VALUES (NULL, '$this->firstName', '$this->lastName', '$this->sex', $this->salary, $this->departmentId)";
-        $mysqli->query($sql);
+        $data = trim($data);
+        $data = stripslashes($data);
+        return htmlspecialchars($data);
     }
-
 
     public static function getTable(): string
     {
@@ -286,6 +264,10 @@ class Employee // implements TableEditable
 
     }
 
+    /**
+     * @param Employee|null $employee
+     * @return string
+     */
     public static function getForm(Employee $employee = null): string
     {
         $html = '<form class="col s12" action="index.php" method="post">';

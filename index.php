@@ -15,68 +15,87 @@ $lastName = $_POST['lastName'] ?? '';
 $sex = $_POST['sex'] ?? '';
 $salary = $_POST['salary'] ?? '';
 $departmentId = $_POST['departmentId'] ?? '';
-$inputWarning = '';
+$inputWarning = [];
 
 
 include 'view/head.php';
 
 try {
     if ($action === 'showRead') {
-        if ($area === 'employee') {
-            $view = 'showReadEmployee';
-        } elseif ($area === 'department') {
-            $view = 'showReadDepartment';
-        }
+        $view = 'showRead' . ucfirst($area);
     } elseif ($action === 'showCreate') {
-        if ($area === 'employee') {
-            $view = 'showCreateEmployee';
-        } elseif ($area === 'department') {
-            $view = 'showCreateDepartment';
-        }
+        $view = 'showCreate' . ucfirst($area);
     } elseif (str_starts_with($action, 'showUpdate')) {
-        if ($area === 'employee') {
-            $view = 'showUpdateEmployee';
-        } elseif ($area === 'department') {
-            $view = 'showUpdateDepartment';
-        }
+        $view = 'showUpdate' . ucfirst($area);
     } elseif ($action === 'create') {
         if ($area === 'employee') {
-            if (Employee::inputNotEmpty($firstName, $lastName, $salary)) {
+            $inputFields = [$firstName, $lastName, $salary];
+            if (Employee::inputNotEmpty($inputFields)) {
                 if (!Employee::exists($firstName, $lastName)) {
-                    new Employee($firstName, $lastName, $sex, $salary, $departmentId);
-                    $view = 'showRead' . ucfirst($area);
+                    if (is_numeric($salary)) {
+                        new Employee($firstName, $lastName, $sex, $salary, $departmentId);
+                        $view = 'showRead' . ucfirst($area);
+                    } else {
+                        $inputWarning[] = 'salaryNotFloat';
+                        include 'view/inputWarnings.php';
+                        $view = 'showCreate' . ucfirst($area);
+                        $inputWarning = [];
+                    }
                 } else {
-                    $inputWarning = 'duplicate';
+                    $inputWarning[] = 'duplicate';
                     include 'view/inputWarnings.php';
                     $view = 'showCreate' . ucfirst($area);
+                    $inputWarning = [];
                 }
             } else {
-                $inputWarning = 'empty';
+                $inputWarning[] = 'empty';
+                include 'view/inputWarnings.php';
+                $view = 'showCreate' . ucfirst($area);
+                $inputWarning = [];
+            }
+        } elseif ($area === 'department') {
+            $inputFields = [$departmentName];
+            if (Department::inputNotEmpty($inputFields)) {
+                if (!Department::exists($departmentName)) {
+                    new Department(($departmentName));
+                    $view = 'showRead' . ucfirst($area);
+                } else {
+                    $inputWarning = ['duplicate'];
+                    include 'view/inputWarnings.php';
+                    $view = 'showCreate' . ucfirst($area);
+                    $inputWarning = [];
+                }
+            } else {
+                $inputWarning = ['empty'];
                 include 'view/inputWarnings.php';
                 $view = 'showCreate' . ucfirst($area);
             }
-
-        } elseif ($area === 'department') {
-            new Department(($departmentName));
-            $view = 'showReadDepartment';
         }
     } elseif (str_starts_with($action, 'delete')) {
         if ($area === 'employee') {
             Employee::deleteFromTable(substr($action, 6));
-            $view = 'showReadEmployee';
+            $view = 'showRead' . ucfirst($area);
         } elseif ($area === 'department') {
             Department::deleteFromTable(substr($action, 6));
-            $view = 'showReadDepartment';
+            $view = 'showRead' . ucfirst($area);
         }
     } elseif (str_starts_with($action, 'update')) {
         if ($area === 'employee') {
             $e = Employee::getById(substr($action, 6));
-            $e->updateTableEntry($firstName, $lastName, $sex, $salary, $departmentId);
-            $view = 'showReadEmployee';
+            if (!Employee::exists($firstName, $lastName)) {
+                $e->updateTableEntry($firstName, $lastName, $salary, $departmentId);
+                $view = 'showRead' . ucfirst($area);
+            } else {
+                $inputWarning = ['duplicate'];
+                include 'view/inputWarnings.php';
+                $action = 'showUpdate' . $e->getId();
+                $view = 'showUpdate' . ucfirst($area);
+                $inputWarning = [];
+            }
         } elseif ($area === 'department') {
             $d = Department::getById(substr($action, 6));
             $d->updateTableEntry($departmentName);
-            $view = 'showReadDepartment';
+            $view = 'showRead' . ucfirst($area);
         }
     }
     include 'view/' . $view . '.php';
@@ -87,7 +106,6 @@ try {
         file_get_contents('log/error.log'));
     include 'view/error.php';
 } catch (Error $e) {
-//    error_log($er->getMessage() . ' ' . Date('Y-m-d H:i:s') . "\n", 3, 'log/error.log');
     file_put_contents('log/error.log', $e->getMessage() . ' ' . $e->getLine() . "\n" . $e->getFile() .
         ' ' . $e->getCode() . ' ' . $e->getTraceAsString() . ' ' . Date('Y-m-d H:i:s') . "\n" .
         file_get_contents('log/error.log'));

@@ -2,42 +2,60 @@
 
 class Department // implements TableEditable
 {
-    private static int $nextId = 1;
     private int $id;
     private string $dptName;
-
 
     /**
      * @param string $dptName
      * @param int|null $id
+     * @throws Exception
      */
     public function __construct(string $dptName, int $id = null)
     {
-        try {
-            $mysqli = Db::connect();
-            $sql = "INSERT INTO departments(id, dptname) VALUES (NULL, '$dptName')";
+        $this->dptName = $dptName;
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+        $mysqli = Db::connect();
+        if (!isset($id)) {
+            $stmt = $mysqli->prepare("INSERT INTO departments(id, dptname) VALUES (?, ?)");
+            $stmt->bind_param("is", $id, $dptName);
+            $stmt->execute();
+            $this->id = $mysqli->insert_id;
+        } else {
             $this->dptName = $dptName;
-            if (!isset($id)) {
-                $this->id = self::$nextId;
-                Department::$nextId++;
-                $mysqli->query($sql);
-            } else {
-                $this->id = $id;
-            }
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage() . ' ' . $e->getLine() . "\n" . $e->getFile() .
-                ' ' . $e->getCode() . ' ' . $e->getTraceAsString() . ' ' . Date('Y-m-d H:i:s') . "\n" .
-                file_get_contents('log/error.log'));
+            $this->id = $id;
         }
-
     }
 
     /**
-     * @return int
+     * @param string $dptName
+     * @return bool
+     * @throws Exception
      */
-    public static function getNextId(): int
+    public static function exists(string $dptName): bool
     {
-        return self::$nextId;
+        $mysqli = Db::connect();
+        $checkForDuplicates = "SELECT EXISTS(SELECT dptname FROM departments WHERE dptname = '$dptName')";
+        $result = $mysqli->query($checkForDuplicates);
+        $row = $result->fetch_assoc();
+        $dupe = false;
+        foreach ($row as $x => $x_value) {
+            $dupe = $x_value;
+        }
+        return $dupe;
+    }
+
+    /**
+     * @param array $inputFields
+     * @return bool
+     */
+    public static function inputNotEmpty(array $inputFields): bool
+    {
+        foreach ($inputFields as $field) {
+            if (!isset($field) or $field === '') {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -67,31 +85,35 @@ class Department // implements TableEditable
     /**
      * @param int $id
      * @return void
+     * @throws Exception
      */
     public static function deleteFromTable(int $id): void
     {
-        $sql = "DELETE FROM departments WHERE id = $id";
         $mysqli = Db::connect();
-        $mysqli->query($sql);
+        $stmt = $mysqli->prepare("DELETE FROM departments WHERE id = (?)");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
     }
 
     /**
      * @param string $dptName
-     * @param $id
      * @return void
+     * @throws Exception
      */
     public function updateTableEntry(string $dptName): void
     {
         $this->setDptName($dptName);
         $id = $this->getId();
         $mysqli = Db::connect();
-        $sql = "UPDATE departments SET dptname = '$dptName' WHERE id = $id";
-        $mysqli->query($sql);
+        $stmt = $mysqli->prepare("UPDATE departments SET dptname = (?) WHERE id = (?)");
+        $stmt->bind_param("si", $dptName, $id);
+        $stmt->execute();
     }
 
     /**
      * @param int $id
      * @return Department
+     * @throws Exception
      */
     public static function getById(int $id): Department
     {
@@ -102,6 +124,10 @@ class Department // implements TableEditable
         return new Department($row['dptname'], $row['id']);
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public static function getAll(): array
     {
         $sql = "SELECT id, dptname FROM departments ORDER BY id ASC";
@@ -115,7 +141,9 @@ class Department // implements TableEditable
     }
 
     /**
+     * @param Employee|null $employee
      * @return string
+     * @throws Exception
      */
     public static function getSelect(Employee $employee = null): string
     {
@@ -137,6 +165,10 @@ class Department // implements TableEditable
         return $select;
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public static function getTable(): string
     {
         $employees = Department::getAll();
@@ -167,6 +199,10 @@ class Department // implements TableEditable
         return $html;
     }
 
+    /**
+     * @param Department|null $department
+     * @return string
+     */
     public static function getForm(Department $department = null): string
     {
         $html = '<form class="col s12" action="index.php" method="post">';

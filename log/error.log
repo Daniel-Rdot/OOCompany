@@ -1,3 +1,55 @@
+syntax error, unexpected token "," 3
+C:\xampp\htdocs\OOCompany\view\inputWarnings.php 0 #0 {main} 2023-01-20 09:39:09
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '55 = (?), department_id = (?) WHERE id = (?)' at line 1 150
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(150): mysqli->prepare('UPDATE employee...')
+#1 C:\xampp\htdocs\OOCompany\index.php(69): Employee->updateTableEntry('Young Ho', 'test', 55.0, 1)
+#2 {main} 2023-01-20 09:15:45
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '55 = (?), department_id = (?) WHERE id = (?)' at line 1 150
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(150): mysqli->prepare('UPDATE employee...')
+#1 C:\xampp\htdocs\OOCompany\index.php(69): Employee->updateTableEntry('Young Ho', 'fghfgh', 55.0, 1)
+#2 {main} 2023-01-20 09:08:18
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '55 = (?), department_id = (?) WHERE id = (?)' at line 1 150
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(150): mysqli->prepare('UPDATE employee...')
+#1 C:\xampp\htdocs\OOCompany\index.php(69): Employee->updateTableEntry('Youn', 'fghfgh', 55.0, 1)
+#2 {main} 2023-01-20 09:07:44
+Employee::getById(): Argument #1 ($id) must be of type int, string given, called in C:\xampp\htdocs\OOCompany\view\showUpdateEmployee.php on line 16 160
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\view\showUpdateEmployee.php(16): Employee::getById('')
+#1 C:\xampp\htdocs\OOCompany\index.php(82): include('C:\\xampp\\htdocs...')
+#2 {main} 2023-01-20 09:05:13
+Employee::getById(): Argument #1 ($id) must be of type int, string given, called in C:\xampp\htdocs\OOCompany\view\showUpdateEmployee.php on line 16 160
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\view\showUpdateEmployee.php(16): Employee::getById('')
+#1 C:\xampp\htdocs\OOCompany\index.php(83): include('C:\\xampp\\htdocs...')
+#2 {main} 2023-01-20 08:58:06
+Employee::updateTableEntry(): Argument #3 ($salary) must be of type float, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 80 142
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(80): Employee->updateTableEntry('trtrt', 'sdfsdf', 'm', '444', '2')
+#1 {main} 2023-01-20 08:42:26
+Employee::__construct(): Argument #4 ($salary) must be of type float, string given, called in C:\xampp\htdocs\OOCompany\index.php on line 46 23
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(46): Employee->__construct('sdfsfsdf', 'sdfsdf', 'm', 'd', '1')
+#1 {main} 2023-01-20 08:35:34
+mysqli_stmt::bind_param(): Argument #1 ($types) must only contain the "b", "d", "i", "s" type specifiers 34
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(34): mysqli_stmt->bind_param('isssfi', NULL, 'tztz', 'vbncvb', 'w', 55.0, 1)
+#1 C:\xampp\htdocs\OOCompany\index.php(46): Employee->__construct('tztz', 'vbncvb', 'w', 55.0, 1)
+#2 {main} 2023-01-20 08:34:22
+mysqli::query(): Argument #1 ($query) cannot be empty 118
+C:\xampp\htdocs\OOCompany\class\Department.php 0 #0 C:\xampp\htdocs\OOCompany\class\Department.php(118): mysqli->query('')
+#1 C:\xampp\htdocs\OOCompany\index.php(84): Department->updateTableEntry('rr')
+#2 {main} 2023-01-20 08:26:20
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1' OR '1' = '1' AND lastname='1' OR '1' = '1'' AND lastname = 'rrr')' at line 1 219
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(219): mysqli->query('SELECT EXISTS(S...')
+#1 C:\xampp\htdocs\OOCompany\index.php(45): Employee::exists('SELECT * FROM e...', 'rrr')
+#2 {main} 2023-01-20 08:19:22
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hi');</script>')' at line 1 39
+C:\xampp\htdocs\OOCompany\class\Department.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Department.php(39): mysqli->query('SELECT EXISTS(S...')
+#1 C:\xampp\htdocs\OOCompany\index.php(59): Department::exists('<script>alert('...')
+#2 {main} 2023-01-20 08:15:39
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hi')</script>' AND lastname = 'r')' at line 1 219
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(219): mysqli->query('SELECT EXISTS(S...')
+#1 C:\xampp\htdocs\OOCompany\index.php(45): Employee::exists('<script>alert('...', 'r')
+#2 {main} 2023-01-20 08:15:13
+Duplicate entry 'Terran' for key 'name' 53
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(53): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(60): Department->__construct('Terran')
+#2 {main} 2023-01-19 09:04:50
 Department::__construct(): Argument #1 ($dptName) must be of type string, null given, called in C:\xampp\htdocs\OOCompany\class\Department.php on line 102 14
 C:\xampp\htdocs\OOCompany\class\Department.php 0 #0 C:\xampp\htdocs\OOCompany\class\Department.php(102): Department->__construct(NULL, NULL)
 #1 C:\xampp\htdocs\OOCompany\class\Employee.php(273): Department::getById(6000)
