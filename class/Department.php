@@ -34,28 +34,17 @@ class Department // implements TableEditable
     public static function exists(string $dptName): bool
     {
         $mysqli = Db::connect();
-        $checkForDuplicates = "SELECT EXISTS(SELECT dptname FROM departments WHERE dptname = '$dptName')";
-        $result = $mysqli->query($checkForDuplicates);
+        $checkForDuplicates = "SELECT EXISTS(SELECT dptname FROM departments WHERE dptname = ?)";
+        $stmt = $mysqli->prepare($checkForDuplicates);
+        $stmt->bind_param("s", $dptName);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         $dupe = false;
         foreach ($row as $x => $x_value) {
             $dupe = $x_value;
         }
         return $dupe;
-    }
-
-    /**
-     * @param array $inputFields
-     * @return bool
-     */
-    public static function inputNotEmpty(array $inputFields): bool
-    {
-        foreach ($inputFields as $field) {
-            if (!isset($field) or $field === '') {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -118,8 +107,11 @@ class Department // implements TableEditable
     public static function getById(int $id): Department
     {
         $mysqli = Db::connect();
-        $sql = "SELECT id, dptname FROM departments WHERE id = $id";
-        $result = $mysqli->query($sql);
+        $sql = "SELECT id, dptname FROM departments WHERE id = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return new Department($row['dptname'], $row['id']);
     }

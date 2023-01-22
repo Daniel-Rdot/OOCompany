@@ -2,7 +2,6 @@
 
 class Employee // implements TableEditable
 {
-    private static int $nextId = 1;
     private int $id;
     private string $firstName;
     private string $lastName;
@@ -23,7 +22,6 @@ class Employee // implements TableEditable
     public function __construct(string $firstName, string $lastName, string $sex, float $salary, int $departmentId, int $id = null)
     {
         $mysqli = Db::connect();
-        $sql = "INSERT INTO employees(id, firstname, lastname, sex, salary, department_id) VALUES (NULL, '$firstName', '$lastName', '$sex', $salary, $departmentId)";
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->sex = $sex;
@@ -159,8 +157,11 @@ class Employee // implements TableEditable
     public static function getById(int $id): Employee
     {
         $mysqli = Db::connect();
-        $sql = "SELECT id, firstname, lastname, sex, salary, department_id FROM employees WHERE id = $id";
-        $result = $mysqli->query($sql);
+        $sql = "SELECT id, firstname, lastname, sex, salary, department_id FROM employees WHERE id = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return new Employee($row['firstname'], $row['lastname'], $row['sex'], $row['salary'], $row['department_id'], $row['id']);
     }
@@ -190,8 +191,11 @@ class Employee // implements TableEditable
     public static function exists(string $firstName, string $lastName): bool
     {
         $mysqli = Db::connect();
-        $checkForDuplicates = "SELECT EXISTS(SELECT firstname, lastname FROM employees WHERE firstname = '$firstName' AND lastname = '$lastName')";
-        $result = $mysqli->query($checkForDuplicates);
+        $checkForDuplicates = "SELECT EXISTS(SELECT firstname, lastname FROM employees WHERE firstname = ? AND lastname = ?)";
+        $stmt = $mysqli->prepare($checkForDuplicates);
+        $stmt->bind_param("ss", $firstName, $lastName);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         $dupe = false;
         foreach ($row as $x => $x_value) {
@@ -201,30 +205,9 @@ class Employee // implements TableEditable
     }
 
     /**
-     * @param array $inputFields
-     * @return bool
-     */
-    public static function inputNotEmpty(array $inputFields): bool
-    {
-        foreach ($inputFields as $field) {
-            if (!isset($field) or $field === '') {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * @param $data
      * @return string
+     * @throws Exception
      */
-    function getSanitized($data): string
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        return htmlspecialchars($data);
-    }
-
     public static function getTable(): string
     {
         $employees = Employee::getAll();
@@ -267,6 +250,7 @@ class Employee // implements TableEditable
     /**
      * @param Employee|null $employee
      * @return string
+     * @throws Exception
      */
     public static function getForm(Employee $employee = null): string
     {

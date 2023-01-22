@@ -1,3 +1,117 @@
+ 45
+C:\xampp\htdocs\OOCompany\class\Department.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(117): Department::exists('&lt;script&gt;a...')
+#1 {main} 2023-01-22 14:23:49
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(80): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-22 14:13:13
+Duplicate entry 'Terran' for key 'name' 96
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(96): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(117): Department->updateTableEntry('Terran')
+#2 {main} 2023-01-22 13:59:24
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:55:52
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:55:01
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:54:12
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:53:24
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:53:17
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:53:14
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:52:42
+Call to undefined method Employee::getSanitized() 25
+C:\xampp\htdocs\OOCompany\class\Employee.php 0 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(180): Employee->__construct('Young Ho', 'Lee', 'm', 6000.84, 1, 1)
+#1 C:\xampp\htdocs\OOCompany\class\Employee.php(210): Employee::getAll()
+#2 C:\xampp\htdocs\OOCompany\view\showReadEmployee.php(3): Employee::getTable()
+#3 C:\xampp\htdocs\OOCompany\index.php(123): include('C:\\xampp\\htdocs...')
+#4 {main} 2023-01-22 13:52:39
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(82): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 14:18:45
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(82): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 14:18:18
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(82): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 14:15:51
+Duplicate entry '&amp;lt;script&amp;gt;alert(&amp;#039;hi&amp;' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(82): Department->__construct('&amp;lt;script&...')
+#2 {main} 2023-01-20 14:13:14
+isValid(): Return value must be of type array, string returned 21
+C:\xampp\htdocs\OOCompany\index.php 0 #0 C:\xampp\htdocs\OOCompany\index.php(82): isValid('&lt;script&gt;a...')
+#1 {main} 2023-01-20 14:05:08
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(81): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 13:51:17
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(65): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 13:45:38
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(63): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 13:43:17
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(63): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 13:41:53
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(62): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 13:38:35
+Duplicate entry '&lt;script&gt;alert(&#039;hi&#039;);&lt;/scri' for key 'name' 21
+C:\xampp\htdocs\OOCompany\class\Department.php 1062 #0 C:\xampp\htdocs\OOCompany\class\Department.php(21): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\OOCompany\index.php(62): Department->__construct('&lt;script&gt;a...')
+#2 {main} 2023-01-20 13:35:36
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hi')</script>' AND lastname = 'Ma')' at line 1 194
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(194): mysqli->query('SELECT EXISTS(S...')
+#1 C:\xampp\htdocs\OOCompany\index.php(34): Employee::exists('<script>alert('...', 'Ma')
+#2 {main} 2023-01-20 11:28:50
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hi')</script>' AND lastname = 'Lee')' at line 1 194
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(194): mysqli->query('SELECT EXISTS(S...')
+#1 C:\xampp\htdocs\OOCompany\index.php(34): Employee::exists('<script>alert('...', 'Lee')
+#2 {main} 2023-01-20 11:12:58
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hi')</script>' AND lastname = 'tert')' at line 1 194
+C:\xampp\htdocs\OOCompany\class\Employee.php 1064 #0 C:\xampp\htdocs\OOCompany\class\Employee.php(194): mysqli->query('SELECT EXISTS(S...')
+#1 C:\xampp\htdocs\OOCompany\index.php(34): Employee::exists('<script>alert('...', 'tert')
+#2 {main} 2023-01-20 11:12:12
 syntax error, unexpected token "," 3
 C:\xampp\htdocs\OOCompany\view\inputWarnings.php 0 #0 {main} 2023-01-20 09:39:09
 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '55 = (?), department_id = (?) WHERE id = (?)' at line 1 150

@@ -5,16 +5,35 @@ spl_autoload_register(function ($class) {
 });
 ini_set('display_errors', 1);
 
+//function getSanitized($data): string
+//{
+//    $data = trim($data);
+//    $data = stripslashes($data);
+//    return htmlspecialchars($data);
+//}
+
+//function isValid($values): array
+//{
+//    foreach ($values as $field => $value) {
+//        $values[$field] = getSanitized($value);
+//    }
+//
+//    return $values;
+//}
+
 include 'view/homeNav.php';
+//$values = isValid($_REQUEST);
+//print_r($values);
+//print_r($_POST);
 $view = 'home';
 $action = $_REQUEST['action'] ?? '';
 $area = $_REQUEST['area'] ?? '';
-$departmentName = $_POST['departmentName'] ?? '';
-$firstName = $_POST['firstName'] ?? '';
-$lastName = $_POST['lastName'] ?? '';
-$sex = $_POST['sex'] ?? '';
-$salary = $_POST['salary'] ?? '';
-$departmentId = $_POST['departmentId'] ?? '';
+$departmentName = inputHandler::getSanitized($_POST['departmentName'] ?? '', ENT_QUOTES, 'UTF-8');
+$firstName = inputHandler::getSanitized($_POST['firstName'] ?? '', ENT_QUOTES, 'UTF-8');
+$lastName = inputHandler::getSanitized($_POST['lastName'] ?? '', ENT_QUOTES, 'UTF-8');
+$sex = inputHandler::getSanitized($_POST['sex'] ?? '', ENT_QUOTES, 'UTF-8');
+$salary = inputHandler::getSanitized($_POST['salary'] ?? '', ENT_QUOTES, 'UTF-8');
+$departmentId = inputHandler::getSanitized($_POST['departmentId'] ?? '', ENT_QUOTES, 'UTF-8');
 $inputWarning = [];
 
 
@@ -30,9 +49,10 @@ try {
     } elseif ($action === 'create') {
         if ($area === 'employee') {
             $inputFields = [$firstName, $lastName, $salary];
-            if (Employee::inputNotEmpty($inputFields)) {
+            if (inputHandler::inputNotEmpty($inputFields)) {
                 if (!Employee::exists($firstName, $lastName)) {
                     if (is_numeric($salary)) {
+                        $salary = (float)$salary;
                         new Employee($firstName, $lastName, $sex, $salary, $departmentId);
                         $view = 'showRead' . ucfirst($area);
                     } else {
@@ -55,9 +75,9 @@ try {
             }
         } elseif ($area === 'department') {
             $inputFields = [$departmentName];
-            if (Department::inputNotEmpty($inputFields)) {
+            if (inputHandler::inputNotEmpty($inputFields)) {
                 if (!Department::exists($departmentName)) {
-                    new Department(($departmentName));
+                    new Department($departmentName);
                     $view = 'showRead' . ucfirst($area);
                 } else {
                     $inputWarning = ['duplicate'];
@@ -94,9 +114,19 @@ try {
             }
         } elseif ($area === 'department') {
             $d = Department::getById(substr($action, 6));
-            $d->updateTableEntry($departmentName);
-            $view = 'showRead' . ucfirst($area);
+            if (!Department::exists($departmentName)) {
+                $d->updateTableEntry($departmentName);
+                $view = 'showRead' . ucfirst($area);
+            } else {
+                $inputWarning = ['duplicate'];
+                include 'view/inputWarnings.php';
+                $action = 'showUpdate' . $d->getId();
+                $view = 'showUpdate' . ucfirst($area);
+                $inputWarning = [];
+            }
         }
+    } else {
+        $view = 'home';
     }
     include 'view/' . $view . '.php';
     include 'view/foot.php';
@@ -113,6 +143,3 @@ try {
 }
 
 
-echo '<pre>';
-print_r($_REQUEST);
-echo '</pre>';
