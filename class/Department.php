@@ -163,7 +163,7 @@ class Department // implements TableEditable
      */
     public static function getTable(): string
     {
-        $employees = Department::getAll();
+        $departments = Department::getAll();
         $html = '<h2>Abteilungen</h2>';
         $html .= '<table class="highlight striped">';
         $html .= '<thead>';
@@ -172,15 +172,15 @@ class Department // implements TableEditable
         $html .= '<th>Name</th>';
         $html .= '</thead>';
         $html .= '<tbody>';
-        foreach ($employees as $employee) {
-            $currentId = $employee->getId();
+        foreach ($departments as $department) {
+            $currentId = $department->getId();
             $html .= '<tr>';
-            $html .= '<td>' . $employee->getId() . '</td>';
-            $html .= '<td>' . $employee->getDptName() . '</td>';
+            $html .= '<td>' . $currentId . '</td>';
+            $html .= '<td><input type="text" class="dptName" data-id="' . $currentId . '" value="' . $department->getDptName() . '" onchange="loadDpt(this)">' . '</td>';
             $html .= '<form action="index.php" method="post">';
             $html .= '<input type="hidden" name="area" value="department">';
-            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
-                $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
+//            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
+//                $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="delete' .
                 $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td>';
             $html .= '</form>';

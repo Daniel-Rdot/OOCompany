@@ -3,3 +3,4 @@
     echo Department::getTable();
     ?>
 </div>
+<div id="test"></div>

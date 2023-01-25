@@ -3,23 +3,8 @@ include 'config.php';
 spl_autoload_register(function ($class) {
     include 'class/' . $class . '.php';
 });
+
 ini_set('display_errors', 1);
-
-//function getSanitized($data): string
-//{
-//    $data = trim($data);
-//    $data = stripslashes($data);
-//    return htmlspecialchars($data);
-//}
-
-//function isValid($values): array
-//{
-//    foreach ($values as $field => $value) {
-//        $values[$field] = getSanitized($value);
-//    }
-//
-//    return $values;
-//}
 
 include 'view/homeNav.php';
 //$values = isValid($_REQUEST);
@@ -32,7 +17,7 @@ $departmentName = inputHandler::getSanitized($_POST['departmentName'] ?? '', ENT
 $firstName = inputHandler::getSanitized($_POST['firstName'] ?? '', ENT_QUOTES, 'UTF-8');
 $lastName = inputHandler::getSanitized($_POST['lastName'] ?? '', ENT_QUOTES, 'UTF-8');
 $sex = inputHandler::getSanitized($_POST['sex'] ?? '', ENT_QUOTES, 'UTF-8');
-$salary = inputHandler::getSanitized($_POST['salary'] ?? '', ENT_QUOTES, 'UTF-8');
+$salary = filter_var($_POST['salary'] ?? '', FILTER_SANITIZE_NUMBER_FLOAT);
 $departmentId = inputHandler::getSanitized($_POST['departmentId'] ?? '', ENT_QUOTES, 'UTF-8');
 $inputWarning = [];
 

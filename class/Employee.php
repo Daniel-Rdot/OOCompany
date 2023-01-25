@@ -226,16 +226,14 @@ class Employee // implements TableEditable
         foreach ($employees as $employee) {
             $currentId = $employee->getId();
             $html .= '<tr>';
-            $html .= '<td>' . $employee->getId() . '</td>';
-            $html .= '<td>' . $employee->getFirstName() . '</td>';
-            $html .= '<td>' . $employee->getLastName() . '</td>';
+            $html .= '<td>' . $currentId . '</td>';
+            $html .= '<td><input type="text" class="empName" data-attr="firstName" data-id="' . $currentId . '" value="' . $employee->getFirstName() . '" onchange="loadEmp(this)">' . '</td>';
+            $html .= '<td><input type="text" class="empName" data-attr="lastName" data-id="' . $currentId . '" value="' . $employee->getLastName() . '" onchange="loadEmp(this)">' . '</td>';
             $html .= '<td>' . $employee->getSex() . '</td>';
-            $html .= '<td>' . $employee->getSalary() . '</td>';
+            $html .= '<td><input type="text" class="empName" data-attr="salary" data-id="' . $currentId . '" value="' . $employee->getSalary() . '" onchange="loadEmp(this)">' . '</td>';
             $html .= '<td>' . Department::getById($employee->getDepartmentId())->getDptName() . '</td>';
             $html .= '<form action="index.php" method="post">';
             $html .= '<input type="hidden" name="area" value="employee">';
-            $html .= '<td><button class="btn waves-effect waves-light" name="action" value="showUpdate' .
-                $currentId . '" type="submit" id="' . $currentId . '">Ändern</button></td>';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="delete' .
                 $currentId . '" type="submit" id="' . $currentId . '">Löschen</button></td>';
             $html .= '</form>';
