@@ -136,7 +136,7 @@ class Employee // implements TableEditable
      * @return void
      * @throws Exception
      */
-    public function updateTableEntry(string $firstName, string $lastName, float $salary, int $departmentId): void
+    public function updateTableEntry(string $firstName, string $lastName, string $sex, float $salary, int $departmentId): void
     {
         $this->setFirstName($firstName);
         $this->setLastName($lastName);
@@ -144,8 +144,8 @@ class Employee // implements TableEditable
         $this->setDepartmentId($departmentId);
         $id = $this->getId();
         $mysqli = Db::connect();
-        $stmt = $mysqli->prepare("UPDATE employees SET firstname = (?), lastname = (?), salary = (?), department_id = (?) WHERE id = (?)");
-        $stmt->bind_param("ssdii", $firstName, $lastName, $salary, $departmentId, $id);
+        $stmt = $mysqli->prepare("UPDATE employees SET firstname = (?), lastname = (?), sex = (?), salary = (?), department_id = (?) WHERE id = (?)");
+        $stmt->bind_param("sssdii", $firstName, $lastName, $sex, $salary, $departmentId, $id);
         $stmt->execute();
     }
 
@@ -229,9 +229,22 @@ class Employee // implements TableEditable
             $html .= '<td>' . $currentId . '</td>';
             $html .= '<td><input type="text" class="empName" data-attr="firstName" data-id="' . $currentId . '" value="' . $employee->getFirstName() . '" onchange="loadEmp(this)">' . '</td>';
             $html .= '<td><input type="text" class="empName" data-attr="lastName" data-id="' . $currentId . '" value="' . $employee->getLastName() . '" onchange="loadEmp(this)">' . '</td>';
-            $html .= '<td>' . $employee->getSex() . '</td>';
+            $html .= '<td><select id="sexDropdown" name="sex" class="browser-default" data-attr="sex" data-id="' . $currentId . '" onchange="loadEmp(this)" required>';
+
+            if ($employee->getSex() === 'm') {
+                $html .= '<option value="m" selected>Männlich</option>';
+                $html .= '<option value="w">Weiblich</option>';
+            } else {
+                $html .= '<option value="w" selected>Weiblich</option>';
+                $html .= '<option value="m">Männlich</option>';
+            }
+            $html .= '</select></td>';
             $html .= '<td><input type="text" class="empName" data-attr="salary" data-id="' . $currentId . '" value="' . $employee->getSalary() . '" onchange="loadEmp(this)">' . '</td>';
-            $html .= '<td>' . Department::getById($employee->getDepartmentId())->getDptName() . '</td>';
+            $html .= '<td>';
+            $html .= '<select id="dptDropdown" class="browser-default" name="departmentId" required>';
+            $html .= Department::getSelect($employee);
+            $html .= '</select>';
+            $html .= '</td>';
             $html .= '<form action="index.php" method="post">';
             $html .= '<input type="hidden" name="area" value="employee">';
             $html .= '<td><button class="btn waves-effect waves-light" name="action" value="delete' .

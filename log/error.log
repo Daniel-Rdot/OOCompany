@@ -1,3 +1,9 @@
+Datenbankconnect misslungen 20
+/opt/lampp/htdocs/OOCompany/class/Db.php 0 #0 /opt/lampp/htdocs/OOCompany/class/Employee.php(177): Db::connect()
+#1 /opt/lampp/htdocs/OOCompany/class/Employee.php(213): Employee::getAll()
+#2 /opt/lampp/htdocs/OOCompany/view/showReadEmployee.php(3): Employee::getTable()
+#3 /opt/lampp/htdocs/OOCompany/index.php(116): include('/opt/lampp/htdo...')
+#4 {main} 2023-01-26 08:36:17
 Department::__construct(): Argument #1 ($dptName) must be of type string, null given, called in /opt/lampp/htdocs/OOCompany/class/Department.php on line 116 13
 /opt/lampp/htdocs/OOCompany/class/Department.php 0 #0 /opt/lampp/htdocs/OOCompany/class/Department.php(116): Department->__construct(NULL, NULL)
 #1 /opt/lampp/htdocs/OOCompany/class/Employee.php(234): Department::getById(0)
