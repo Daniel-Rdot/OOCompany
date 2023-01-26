@@ -1,28 +1,10 @@
 <?php
-include 'config.php';
-spl_autoload_register(function ($class) {
-    include 'class/' . $class . '.php';
-});
-
-ini_set('display_errors', 1);
-
+include 'view/head.php';
+include 'view/receiveAndSanitize.php';
 include 'view/homeNav.php';
-//$values = isValid($_REQUEST);
-//print_r($values);
-//print_r($_POST);
 $view = 'home';
-$action = $_REQUEST['action'] ?? '';
-$area = $_REQUEST['area'] ?? '';
-$departmentName = inputHandler::getSanitized($_POST['departmentName'] ?? '', ENT_QUOTES, 'UTF-8');
-$firstName = inputHandler::getSanitized($_POST['firstName'] ?? '', ENT_QUOTES, 'UTF-8');
-$lastName = inputHandler::getSanitized($_POST['lastName'] ?? '', ENT_QUOTES, 'UTF-8');
-$sex = inputHandler::getSanitized($_POST['sex'] ?? '', ENT_QUOTES, 'UTF-8');
-$salary = filter_var($_POST['salary'] ?? '', FILTER_SANITIZE_NUMBER_FLOAT);
-$departmentId = inputHandler::getSanitized($_POST['departmentId'] ?? '', ENT_QUOTES, 'UTF-8');
 $inputWarning = [];
 
-
-include 'view/head.php';
 
 try {
     if ($action === 'showRead') {

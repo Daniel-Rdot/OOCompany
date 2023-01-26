@@ -1,14 +1,5 @@
 <?php
-include 'config.php';
-spl_autoload_register(function ($class) {
-    include 'class/' . $class . '.php';
-});
-
-ini_set('display_errors', 1);
-$area = $_POST['area'];
-$id = $_POST['id'];
-$attr = $_POST['data-attr'];
-$val = $_POST['value'];
+include 'view/receiveAndSanitize.php';
 
 if ($area === 'department') {
     $dptName = inputHandler::getSanitized($_POST['dptName'], ENT_QUOTES, 'UTF-8');

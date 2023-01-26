@@ -241,7 +241,7 @@ class Employee // implements TableEditable
             $html .= '</select></td>';
             $html .= '<td><input type="text" class="empName" data-attr="salary" data-id="' . $currentId . '" value="' . $employee->getSalary() . '" onchange="loadEmp(this)">' . '</td>';
             $html .= '<td>';
-            $html .= '<select id="dptDropdown" class="browser-default" name="departmentId" required>';
+            $html .= '<select id="dptDropdown" class="browser-default" data-attr="departmentId" data-id="' . $currentId . '" name="departmentId" onchange="loadEmp(this)" required>';
             $html .= Department::getSelect($employee);
             $html .= '</select>';
             $html .= '</td>';
