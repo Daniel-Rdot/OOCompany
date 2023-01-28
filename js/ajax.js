@@ -22,8 +22,6 @@ function loadEmp(obj) {
         // einnen listener erstellen, wenn die Seite(der Text vom Server) existiert (200 OK)
         // und komplett ausgeliefert worden ist, dann steht die Antwort im Attribut responseText
         if (this.readyState == 4 && this.status == 200) {
-            // document.querySelector('[data-id="1"]').value = this.responseText;
-            // console.log('data-attr: ' + obj.dataset.attr + ',  value: ' + obj.value);
             console.log(this.responseText);
         }
     };

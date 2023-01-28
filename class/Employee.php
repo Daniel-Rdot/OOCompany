@@ -226,10 +226,10 @@ class Employee // implements TableEditable
         foreach ($employees as $employee) {
             $currentId = $employee->getId();
             $html .= '<tr>';
-            $html .= '<td>' . $currentId . '</td>';
+            $html .= '<td class="id">' . $currentId . '</td>';
             $html .= '<td><input type="text" class="empName" data-attr="firstName" data-id="' . $currentId . '" value="' . $employee->getFirstName() . '" onchange="loadEmp(this)">' . '</td>';
             $html .= '<td><input type="text" class="empName" data-attr="lastName" data-id="' . $currentId . '" value="' . $employee->getLastName() . '" onchange="loadEmp(this)">' . '</td>';
-            $html .= '<td><select id="sexDropdown" name="sex" class="browser-default" data-attr="sex" data-id="' . $currentId . '" onchange="loadEmp(this)" required>';
+            $html .= '<td><select id="sexDropdown" name="sex" class="browser-default updateSelect" data-attr="sex" data-id="' . $currentId . '" onchange="loadEmp(this)" required>';
 
             if ($employee->getSex() === 'm') {
                 $html .= '<option value="m" selected>Männlich</option>';
@@ -241,7 +241,7 @@ class Employee // implements TableEditable
             $html .= '</select></td>';
             $html .= '<td><input type="text" class="empName" data-attr="salary" data-id="' . $currentId . '" value="' . $employee->getSalary() . '" onchange="loadEmp(this)">' . '</td>';
             $html .= '<td>';
-            $html .= '<select id="dptDropdown" class="browser-default" data-attr="departmentId" data-id="' . $currentId . '" name="departmentId" onchange="loadEmp(this)" required>';
+            $html .= '<select id="dptDropdown" class="browser-default updateSelect" data-attr="departmentId" data-id="' . $currentId . '" name="departmentId" onchange="loadEmp(this)" required>';
             $html .= Department::getSelect($employee);
             $html .= '</select>';
             $html .= '</td>';

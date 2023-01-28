@@ -12,8 +12,7 @@ CREATE TABLE employees
     lastname      VARCHAR(45)                    NOT NULL,
     sex           VARCHAR(45)                    NOT NULL,
     salary        DOUBLE                         NOT NULL,
-    department_id INT,
-    FOREIGN KEY (department_id) REFERENCES departments (id)
+    department_id INT
 );
 
 INSERT INTO employees(id, firstname, lastname, sex, salary, department_id)
